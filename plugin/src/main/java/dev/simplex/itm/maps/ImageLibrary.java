@@ -80,6 +80,22 @@ public final class ImageLibrary {
         return p == null ? null : p.getFileName().toString();
     }
 
+    /** Moves an image to {@code trash/images/} (never deletes for good – just in case). */
+    public boolean delete(String name) {
+        Path p = resolve(name);
+        if (p == null) return false;
+        try {
+            Path trash = plugin.getDataFolder().toPath().resolve("trash").resolve("images");
+            Files.createDirectories(trash);
+            Path target = trash.resolve(System.currentTimeMillis() + "_" + p.getFileName());
+            Files.move(p, target, StandardCopyOption.REPLACE_EXISTING);
+            return true;
+        } catch (IOException e) {
+            plugin.getLogger().warning("Could not delete image " + name + ": " + e.getMessage());
+            return false;
+        }
+    }
+
     private static String ext(String n) {
         int i = n.lastIndexOf('.');
         return i < 0 ? "" : n.substring(i + 1).toLowerCase(Locale.ROOT);

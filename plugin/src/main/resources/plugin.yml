@@ -2,54 +2,25 @@ name: SimplexImageToMap
 version: '${version}'
 main: dev.simplex.itm.SimplexPlugin
 api-version: '26.2'
-description: Images & animated GIFs on maps, custom blocks and 3D models for Java and Bedrock (Geyser/Floodgate).
+description: Images & animated GIFs on map walls with guided placement – for Java and Bedrock (Geyser/Floodgate).
 authors: [Simplex]
 website: https://github.com/robin9094707/ImageToMaps
 softdepend: [floodgate, Geyser-Spigot]
-loadbefore: [Geyser-Spigot]
 
 permissions:
   simplex.use:
-    description: Open the Simplex menu, browse blocks and models
-    default: true
-  simplex.blocks.place:
-    description: Place custom blocks
-    default: true
-  simplex.models.place:
-    description: Place 3D models / furniture
-    default: true
-  simplex.models.break:
-    description: Pick up 3D models (sneak + hit)
+    description: Use /sim and open the menu
     default: true
   simplex.images:
     description: View the image & display menus
     default: op
   simplex.images.create:
-    description: Create, move, refresh and remove image displays, download images
-    default: op
-  simplex.blocks.give:
-    description: Take custom blocks from the menu / /sim block give
-    default: op
-  simplex.blocks.manage:
-    description: Create, edit and delete custom blocks and recipes
-    default: op
-  simplex.models.give:
-    description: Take 3D models from the menu
-    default: op
-  simplex.models.manage:
-    description: Import, edit and delete 3D models
+    description: Place, move, refresh and remove displays, download and delete images
     default: op
   simplex.admin:
-    description: Everything (packs, settings, reload)
+    description: Everything (settings, reload)
     default: op
     children:
       simplex.use: true
       simplex.images: true
       simplex.images.create: true
-      simplex.blocks.place: true
-      simplex.blocks.give: true
-      simplex.blocks.manage: true
-      simplex.models.place: true
-      simplex.models.break: true
-      simplex.models.give: true
-      simplex.models.manage: true

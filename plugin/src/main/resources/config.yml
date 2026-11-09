@@ -1,10 +1,11 @@
-# ┌──────────────────────────────────────────────────────────────────────────────┐
-# │  Simplex ImageToMap – images, GIFs, custom blocks & 3D models (Java+Bedrock) │
-# └──────────────────────────────────────────────────────────────────────────────┘
+# ┌───────────────────────────────────────────────────────────────┐
+# │  Simplex ImageToMap – images & animated GIFs on map walls     │
+# │  for Java and Bedrock (Geyser / Floodgate)                    │
+# └───────────────────────────────────────────────────────────────┘
 # Language: players with a German client see German, everyone else English.
 # The console uses:
 console-language: en
-# Copy example blocks, models and images on the first start.
+# Copy the example images (poster + animated GIF) on the first start.
 install-examples: true
 
 ui:
@@ -24,6 +25,10 @@ placement:
   default-style: INVISIBLE  # INVISIBLE | NORMAL | GLOW_INVISIBLE | GLOW
   default-dither: true
 
+displays:
+  # Admins can sneak + hit a frame of a display to open its menu (move, change image, remove …).
+  sneak-hit-opens-menu: true
+
 animation:
   # Max frames decoded per GIF (memory: frames × maps × 16 KB).
   max-frames: 400
@@ -34,36 +39,6 @@ animation:
   bedrock-max-fps: 10
   # Full resync interval (heals packet loss / late joiners).
   keyframe-seconds: 8
-
-custom-blocks:
-  # The custom block module. Disabling it removes blocks from the packs and stops placing them.
-  enabled: true
-
-models:
-  enabled: true
-  # Show a live hologram (Java) / particle box (Bedrock) of the model you are about to place.
-  ghost-preview: true
-  view-range: 96
-
-resource-pack:
-  # Built-in web server hosting the generated packs (Java + Bedrock). Open this TCP port on your host!
-  web-server:
-    enabled: true
-    bind: 0.0.0.0
-    port: 8163
-  # Host name / IP players use to download the pack. Empty = the address the player connected with.
-  public-host: ""
-  # Port players use (if you forward a different external port).
-  public-port: 8163
-  # Use an external web server / CDN instead (upload the files from generated/java/ there).
-  external-url: ""
-  send-on-join: true
-  join-delay-ticks: 20
-  # Push the new pack live to all Java players whenever blocks/models/sounds change.
-  push-on-change: true
-  required: false
-  java-pack-format: 75
-  description: "§bSimplex §7Custom Content"
 
 # Feedback sounds. Set sound to "none" to disable one.
 sounds:

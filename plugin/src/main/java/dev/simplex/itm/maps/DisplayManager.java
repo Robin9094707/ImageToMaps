@@ -303,6 +303,17 @@ public final class DisplayManager implements Listener {
         save();
     }
 
+    /** Removes every display that shows the image. Returns how many were removed. */
+    public int removeAll(String image) {
+        List<MapDisplay> list = displays.values().stream().filter(d -> d.image.equalsIgnoreCase(image)).toList();
+        for (MapDisplay d : list) {
+            removeFrames(d);
+            displays.remove(d.id);
+        }
+        if (!list.isEmpty()) save();
+        return list.size();
+    }
+
     public void restyle(MapDisplay d, FrameStyle style) {
         removeFrames(d);
         d.style = style;
@@ -425,7 +436,30 @@ public final class DisplayManager implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onDamage(EntityDamageEvent event) {
-        if (isOurs(event.getEntity())) event.setCancelled(true);
+        if (!isOurs(event.getEntity())) return;
+        event.setCancelled(true);
+        if (event instanceof org.bukkit.event.entity.EntityDamageByEntityEvent byEntity && byEntity.getDamager() instanceof Player p) {
+            sneakEdit(p, byEntity.getEntity());
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onHangingHit(org.bukkit.event.hanging.HangingBreakByEntityEvent event) {
+        if (isOurs(event.getEntity()) && event.getRemover() instanceof Player p) sneakEdit(p, event.getEntity());
+    }
+
+    private final Map<UUID, Long> lastEdit = new HashMap<>();
+
+    /** Admins: sneak + hit a frame of a display to open its menu (move, change image, remove …). */
+    private void sneakEdit(Player p, Entity frame) {
+        if (!p.isSneaking() || !p.hasPermission("simplex.images.create")) return;
+        if (!plugin.getConfig().getBoolean("displays.sneak-hit-opens-menu", true)) return;
+        long now = System.currentTimeMillis();
+        Long last = lastEdit.get(p.getUniqueId());
+        if (last != null && now - last < 600) return;
+        lastEdit.put(p.getUniqueId(), now);
+        MapDisplay d = byFrame(frame);
+        if (d != null) plugin.menus().display(p, d);
     }
 
     @EventHandler(priority = EventPriority.HIGH)

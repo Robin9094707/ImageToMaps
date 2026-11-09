@@ -8,12 +8,11 @@ help: |-
   <aqua>/sim place cancel</aqua> <gray>· </gray><aqua>/sim place size <w> <h></aqua>
   <aqua>/sim refresh <image|all></aqua> <gray>reload an image file live into all its displays</gray>
   <aqua>/sim download <url> [name]</aqua> <gray>download an image / GIF</gray>
-  <aqua>/sim display <list|info|move|style|pause|remove|tp></aqua>
-  <aqua>/sim block <list|give|create|edit|delete> …</aqua>
-  <aqua>/sim model <list|give|remove> …</aqua>
-  <aqua>/sim pack <info|rebuild|send></aqua> <gray>·</gray> <aqua>/sim reload</aqua>
+  <aqua>/sim image delete <image></aqua> <gray>delete an image and all its displays</gray>
+  <aqua>/sim display <list|info|create|move|style|pause|resume|remove|tp></aqua>
+  <aqua>/sim reload</aqua> <gray>· Tip: sneak + hit a frame to edit its display</gray>
 
-reloaded: "<green>Configuration, blocks and models reloaded – packs are being rebuilt.</green>"
+reloaded: "<green>Configuration and languages reloaded – images are re-rendered.</green>"
 settings.saved: "<green>Settings saved.</green>"
 
 error:
@@ -28,12 +27,7 @@ usage:
   download: "<gray>Usage: <aqua>/sim download <url> [name]</aqua></gray>"
   display: "<gray>Usage: <aqua>/sim display <list|info|move|style <style>|pause|resume|remove|tp> [id]</aqua></gray>"
   display-create: "<gray>Usage: <aqua>/sim display create <image> <w> <h> <world> <x> <y> <z> <face> [style]</aqua> <dark_gray>(x y z = block the frames hang on)</dark_gray></gray>"
-  block: "<gray>Usage: <aqua>/sim block <list|give <id> [amount] [player]|create|edit <id>|delete <id> [replacement]></aqua></gray>"
-  model: "<gray>Usage: <aqua>/sim model <list|give <id> [amount] [player]|remove></aqua></gray>"
-
-item:
-  tag-block: "Simplex Block"
-  tag-model: "Simplex Model"
+  image: "<gray>Usage: <aqua>/sim image delete <image></aqua></gray>"
 
 frame-style:
   invisible: "<white>Invisible</white>"
@@ -46,44 +40,6 @@ fit-mode:
   fill: "<white>Fill (crop)</white>"
   stretch: "<white>Stretch</white>"
 
-block-type:
-  solid: "Solid"
-  transparent: "Transparent / model"
-
-tool:
-  none: "None"
-  pickaxe: "Pickaxe"
-  axe: "Axe"
-  shovel: "Shovel"
-  hoe: "Hoe"
-  shears: "Shears"
-
-sound-preset:
-  stone: "Stone"
-  wood: "Wood"
-  cherry-wood: "Cherry wood"
-  bamboo-wood: "Bamboo wood"
-  nether-wood: "Nether wood"
-  glass: "Glass"
-  metal: "Metal"
-  copper: "Copper"
-  deepslate: "Deepslate"
-  deepslate-bricks: "Deepslate bricks"
-  polished-deepslate: "Polished deepslate"
-  tuff: "Tuff"
-  calcite: "Calcite"
-  amethyst: "Amethyst"
-  mud-bricks: "Mud bricks"
-  nether-bricks: "Nether bricks"
-  basalt: "Basalt"
-  wool: "Wool"
-  gravel: "Gravel"
-  sand: "Sand"
-  grass: "Grass"
-  moss: "Moss"
-  lodestone: "Lodestone"
-  netherite: "Netherite"
-
 image:
   not-found: "<red>Image <white><image></white> not found in the images folder.</red>"
   invalid: "<red>Could not read the image: <white><error></white></red>"
@@ -94,6 +50,9 @@ image:
   downloading: "<gray>Downloading <white><url></white>…</gray>"
   downloaded: "<green>Saved as <white><image></white>.</green> <gray>Use <aqua>/sim place <image></aqua></gray>"
   download-failed: "<red>Download failed: <white><error></white></red>"
+  deleted: "<green>Image <white><image></white> deleted (<white><count></white> displays removed). The file is in <gray>trash/images/</gray>.</green>"
+  delete-failed: "<red>Image <white><image></white> could not be deleted.</red>"
+  displays-removed: "<green>Removed <white><count></white> displays of <white><image></white>.</green>"
 
 placement:
   started: "<green>Guided placement for <white><image></white> (<w>×<h> maps).</green>\n<gray>Look at a wall, floor or ceiling. <white>Right click</white> place · <white>Left click</white> frame style · <white>Sneak + scroll</white> size · <white>F</white> fit mode · <white>Sneak + right click</white> cancel</gray>"
@@ -120,53 +79,6 @@ display:
   status-error: "✖ <error>"
   status-animated: "▶ animated (<frames> frames)"
 
-block:
-  not-found: "<red>Unknown block <white><id></white>.</red>"
-  invalid-id: "<red>Invalid or already used id <white><id></white> (a-z, 0-9, _).</red>"
-  no-slot: "<red>No free slot left for this block type.</red>"
-  no-textures: "<red>No textures yet – upload PNGs to <white><folder></white>.</red>"
-  created: "<green>Block <white><id></white> created! The resource pack is updated for everyone.</green>"
-  saved: "<green>Block <white><id></white> saved – packs are updating.</green>"
-  given: "<green>Gave <white><amount>× <id></white> to <white><player></white>.</green>"
-  deleting: "<yellow>Deleting <white><id></white> – placed blocks become <white><replacement></white>…</yellow>"
-  deleted: "<green>Block <white><id></white> deleted, <white><count></white> placed blocks replaced with <white><replacement></white>.</green>"
-  bedrock-reconnect: "<gray>Bedrock players see new blocks after reconnecting.</gray>"
-
-model:
-  not-found: "<red>Unknown model <white><id></white>.</red>"
-  none-nearby: "<red>No placed model nearby.</red>"
-  removed: "<green>Model <white><model></white> removed.</green>"
-  deleted: "<green>Model <white><id></white> deleted.</green>"
-  created: "<green>Model <white><id></white> imported!</green>"
-  saved: "<green>Model <white><id></white> saved – placed copies updated.</green>"
-  no-uploads: "<red>No new upload found. Put a Blockbench export (model.json + PNGs) into <white><folder></white>.</red>"
-  no-json: "<red>No .json model in <white><folder></white>.</red>"
-
-pack:
-  prompt: "<gradient:#4fd1ff:#7b5cff>Simplex</gradient> <gray>custom blocks, models & sounds</gray>"
-  updated-java: "<aqua>New custom content – the resource pack was updated live.</aqua>"
-  updated-bedrock: "<aqua>New custom content is available – reconnect to load it.</aqua>"
-  declined: "<yellow>Without the resource pack custom blocks look like mushroom blocks.</yellow>"
-  failed: "<red>The resource pack could not be loaded (<status>).</red>"
-  rebuilding: "<gray>Rebuilding resource packs…</gray>"
-  bedrock-reconnect: "<gray>Bedrock packs are sent on join – please reconnect.</gray>"
-  info: "<gray>Java pack SHA-1: <white><sha></white></gray>"
-
-recipe:
-  title: "<dark_gray>Recipe editor</dark_gray>"
-  less: "<red>- 1</red> <gray>(shift: 8)</gray>"
-  more: "<green>+ 1</green> <gray>(shift: 8)</gray>"
-  amount: "<white>Amount: <aqua><amount></aqua></white>"
-  save: "<green><bold>Save recipe</bold></green>"
-  save-lore:
-    - "<gray>Registers the shaped recipe for everyone.</gray>"
-  clear: "<yellow>Clear grid</yellow>"
-  remove: "<red>Remove recipe</red>"
-  hint: "<white>Click items from your inventory into the 3×3 grid</white>"
-  hint-lore:
-    - "<gray>Your items are not consumed – only copied.</gray>"
-    - "<gray>Click a grid slot with an empty cursor to clear it.</gray>"
-
 menu:
   back: "<gray>« Back</gray>"
   close: "<red>Close</red>"
@@ -178,14 +90,13 @@ menu:
   "no": "<red>No</red>"
   main:
     title: "<gradient:#4fd1ff:#7b5cff>Simplex</gradient>"
-    body: "<gray>Images, GIFs, custom blocks and 3D models – for Java and Bedrock.</gray>"
+    body: "<gray>Images and animated GIFs on map walls – for Java and Bedrock.</gray>"
     images: {name: "<aqua>Images & GIFs</aqua>", lore: ["<gray>Place uploaded images on maps</gray>"]}
     displays: {name: "<aqua>Placed displays</aqua>", lore: ["<gray>Manage, move & refresh</gray>"]}
-    blocks: {name: "<gold>Custom blocks</gold>", lore: ["<gray>Catalog, create & edit blocks</gray>"]}
-    models: {name: "<light_purple>3D models & furniture</light_purple>", lore: ["<gray>Place models anywhere</gray>"]}
-    pack: {name: "<green>Resource packs</green>", lore: ["<gray>Rebuild, resend, reload</gray>"]}
-    settings: {name: "<yellow>Settings</yellow>", lore: ["<gray>Modules, frame rates, packs</gray>"]}
+    settings: {name: "<yellow>Settings</yellow>", lore: ["<gray>Defaults, frame rates, view distance</gray>"]}
     help: {name: "<white>Help</white>", lore: ["<gray>All commands</gray>"]}
+    place-nearest: {name: "<yellow>Edit display I look at</yellow>", lore: ["<gray>Or: sneak + hit a frame</gray>"]}
+    reload: {name: "<gray>Reload</gray>", lore: ["<gray>Config, languages, images</gray>"]}
   images:
     title: "<dark_aqua>Images</dark_aqua>"
     body: "<gray>Upload PNG / JPG / GIF files to <folder> – changes are applied live.</gray>"
@@ -198,6 +109,10 @@ menu:
     place: {name: "<green>Place (guided)</green>", lore: ["<gray>Live preview on wall / floor</gray>"]}
     place-custom: {name: "<aqua>Place with options…</aqua>", lore: ["<gray>Size, fit mode, frame style</gray>"]}
     refresh: {name: "<yellow>Refresh live</yellow>", lore: ["<gray>Apply the changed file to all displays</gray>"]}
+    remove-displays: {name: "<gold>Remove all its displays</gold>", lore: ["<gray>The image file stays</gray>"]}
+    remove-displays-confirm: "Remove all <count> displays showing <image>?"
+    delete: {name: "<red>Delete image</red>", lore: ["<gray>File + all its displays</gray>"]}
+    delete-confirm: "Delete <image> and its <count> displays? (The file is moved to trash/images/.)"
   place:
     title: "<dark_aqua>Place image</dark_aqua>"
     body: "<gray><image> · <size> px · height 0 = keep aspect ratio</gray>"
@@ -218,6 +133,7 @@ menu:
       - "<gray><image> · <white><w>×<h></white> maps</gray>"
       - "<gray><world> · <white><distance></white> blocks away</gray>"
       - "<gray><status></gray>"
+    remove-nearest: {name: "<yellow>Display I look at</yellow>", lore: ["<gray>Open the nearest display</gray>"]}
   display:
     teleport: {name: "<aqua>Teleport</aqua>", lore: []}
     refresh: {name: "<yellow>Refresh</yellow>", lore: ["<gray>Re-render from the file</gray>"]}
@@ -228,82 +144,15 @@ menu:
     remove: {name: "<red>Remove</red>", lore: ["<gray>Removes frames and maps</gray>"]}
     remove-confirm: "Really remove display <id>?"
     image: "Image"
-  blocks:
-    title: "<gold>Custom blocks</gold>"
-    body: "<gray>All custom blocks. Admins can create new ones.</gray>"
-    entry-lore:
-      - "<dark_gray>id: <id> · <type> · hardness <hardness></dark_gray>"
-    create: {name: "<green>Create block</green>", lore: ["<gray>Name, texture, sounds, hardness…</gray>"]}
-  block:
-    give: "<green>Take <amount></green>"
-    edit: {name: "<white>Edit</white>", lore: ["<gray>Names, textures, sounds, hardness</gray>"]}
-    recipe: {name: "<gold>Crafting recipe</gold>", lore: ["<gray>Open the recipe editor</gray>"]}
-    delete: {name: "<red>Delete</red>", lore: ["<gray>Placed blocks are replaced live</gray>"]}
-    delete-body: "Delete <id>? Every placed block (also in unloaded chunks) gets replaced."
-    replacement: "Replace with"
-    delete-confirm: "Yes, delete it"
-  block-editor:
-    create: "<gold>Create block</gold>"
-    edit: "<gold>Edit block</gold>"
-    body: "<gray>Textures come from the textures/ folder. Transparent = glass-like / furniture block.</gray>"
-    id: "ID (a-z, 0-9, _)"
-    name-en: "Name (English)"
-    name-de: "Name (German)"
-    desc-en: "Description (English)"
-    desc-de: "Description (German)"
-    type: "Type"
-    texture: "Texture (all sides)"
-    top: "Top texture"
-    bottom: "Bottom texture"
-    same: "– same –"
-    model: "3D model (transparent only)"
-    no-model: "– none (cube) –"
-    hardness: "Hardness"
-    tool: "Preferred tool"
-    requires-tool: "Requires tool to drop"
-    sound: "Sound set"
-    place-sound: "Custom place sound"
-    break-sound: "Custom break sound"
-    preset-sound: "– from sound set –"
-    drop-self: "Drops itself"
-  models:
-    title: "<light_purple>3D models</light_purple>"
-    body: "<gray>Upload Blockbench exports to <folder><name>/ and import them here.</gray>"
-    entry-lore:
-      - "<dark_gray>id: <id> · scale <scale> · placed <placed>×</dark_gray>"
-    import: {name: "<green>Import upload</green>", lore: ["<gray>model.json + PNG textures</gray>"]}
-    remove-nearest: {name: "<red>Remove nearest</red>", lore: ["<gray>Within 6 blocks</gray>"]}
-  model:
-    edit: {name: "<white>Edit</white>", lore: ["<gray>Names, scale, seat, collision</gray>"]}
-    delete: {name: "<red>Delete</red>", lore: ["<gray>Also removes placed copies</gray>"]}
-    delete-confirm: "Really delete model <id> and all placed copies?"
-  model-editor:
-    create: "<light_purple>Import model</light_purple>"
-    edit: "<light_purple>Edit model</light_purple>"
-    body: "<gray>Java: item display · Bedrock: converted geometry via Geyser.</gray>"
-    import-body: "<gray>Choose the uploaded folder.</gray>"
-    folder: "Folder"
-    scale: "Scale"
-    collision: "Solid (barrier collision)"
-    seat: "Can sit on it"
-    seat-height: "Seat height"
-    rotation: "Rotation steps (degrees)"
-    bright: "Always full bright"
-  pack:
-    title: "<green>Resource packs</green>"
-    body: "<gray>Java pack <white><sha></white>\n<url></gray>"
-    rebuild: {name: "<green>Rebuild & push</green>", lore: ["<gray>Java: live · Bedrock: on reconnect</gray>"]}
-    resend: {name: "<aqua>Resend to me</aqua>", lore: []}
-    reload: {name: "<yellow>Reload plugin config</yellow>", lore: ["<gray>Blocks, models, languages</gray>"]}
   settings:
     title: "<yellow>Settings</yellow>"
     body: "<gray>Changes are saved to config.yml.</gray>"
-    blocks: "Custom block module"
-    models: "3D model module"
-    push: "Push packs live on changes"
-    required: "Resource pack required"
-    auto-refresh: "Auto refresh changed images"
-    ghost: "Ghost preview for models"
     java-fps: "GIF frame rate (Java)"
     bedrock-fps: "GIF frame rate (Bedrock)"
     view-distance: "Animation view distance"
+    auto-refresh: "Auto refresh changed images"
+    sneak-edit: "Sneak + hit a frame opens its menu"
+    default-style: "Default frame style"
+    default-fit: "Default fit mode"
+    default-dither: "Dithering by default"
+    max-size: "Max. display size (maps)"

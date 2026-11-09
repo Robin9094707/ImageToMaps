@@ -25,7 +25,7 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build plugin + Geyser extension
+      - name: Build plugin
         run: ./gradlew build --no-daemon
 
       - name: Upload jars
@@ -34,7 +34,6 @@ jobs:
           name: SimplexImageToMap
           path: |
             plugin/build/libs/SimplexImageToMap-*.jar
-            geyser-extension/build/libs/SimplexGeyserExtension-*.jar
           if-no-files-found: error
 
       - name: Publish release
@@ -43,5 +42,4 @@ jobs:
         with:
           files: |
             plugin/build/libs/SimplexImageToMap-*.jar
-            geyser-extension/build/libs/SimplexGeyserExtension-*.jar
           generate_release_notes: true

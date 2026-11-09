@@ -1,8 +1,6 @@
 package dev.simplex.itm.command;
 
 import dev.simplex.itm.SimplexPlugin;
-import dev.simplex.itm.content.BlockDef;
-import dev.simplex.itm.content.ModelDef;
 import dev.simplex.itm.maps.FrameStyle;
 import dev.simplex.itm.maps.MapDisplay;
 import dev.simplex.itm.util.Lang;
@@ -60,9 +58,7 @@ public final class SimplexCommand implements BasicCommand {
                 }
                 case "refresh" -> refresh(sender, args);
                 case "display", "displays" -> display(sender, player, args);
-                case "block", "blocks" -> block(sender, player, args);
-                case "model", "models" -> model(sender, player, args);
-                case "pack" -> pack(sender, player, args);
+                case "image" -> image(sender, args);
                 case "reload" -> {
                     if (perm(sender, "simplex.admin")) reload(sender);
                 }
@@ -229,152 +225,26 @@ public final class SimplexCommand implements BasicCommand {
         }
     }
 
-    private void block(CommandSender sender, Player player, String[] args) {
-        String action = args.length > 1 ? args[1].toLowerCase(Locale.ROOT) : "list";
-        switch (action) {
-            case "list" -> {
-                if (player != null) {
-                    plugin.menus().blocks(player);
-                    return;
-                }
-                for (BlockDef b : plugin.content().blocks()) sender.sendMessage(b.id + " (" + b.kind + ", slot " + b.slot + ")");
-            }
-            case "give" -> {
-                if (!perm(sender, "simplex.blocks.give")) return;
-                if (args.length < 3) {
-                    lang().send(sender, "usage.block");
-                    return;
-                }
-                BlockDef b = plugin.content().block(args[2]);
-                if (b == null) {
-                    lang().send(sender, "block.not-found", Lang.ph("id", args[2]));
-                    return;
-                }
-                int amount = args.length > 3 ? Integer.parseInt(args[3]) : 64;
-                Player target = args.length > 4 ? Bukkit.getPlayerExact(args[4]) : player;
-                if (target == null) {
-                    lang().send(sender, "error.player-not-found");
-                    return;
-                }
-                target.getInventory().addItem(plugin.content().item(b, Math.max(1, Math.min(6400, amount))));
-                lang().send(sender, "block.given", Lang.ph("id", b.id), Lang.ph("amount", amount), Lang.ph("player", target.getName()));
-            }
-            case "create" -> {
-                if (perm(sender, "simplex.blocks.manage") && requirePlayer(sender, player)) plugin.menus().editBlock(player, null);
-            }
-            case "edit" -> {
-                if (!perm(sender, "simplex.blocks.manage") || !requirePlayer(sender, player) || args.length < 3) return;
-                BlockDef b = plugin.content().block(args[2]);
-                if (b != null) plugin.menus().editBlock(player, b);
-                else lang().send(sender, "block.not-found", Lang.ph("id", args[2]));
-            }
-            case "recipe" -> {
-                if (!perm(sender, "simplex.blocks.manage") || !requirePlayer(sender, player) || args.length < 3) return;
-                BlockDef b = plugin.content().block(args[2]);
-                if (b != null) plugin.menus().block(player, b);
-            }
-            case "delete" -> {
-                if (!perm(sender, "simplex.blocks.manage")) return;
-                if (args.length < 3) {
-                    lang().send(sender, "usage.block");
-                    return;
-                }
-                Material replacement = args.length > 3 ? Material.matchMaterial(args[3]) : Material.DIRT;
-                deleteBlock(sender, args[2], replacement == null ? Material.DIRT : replacement);
-            }
-            default -> lang().send(sender, "usage.block");
-        }
-    }
-
-    public void deleteBlock(CommandSender sender, String id, Material replacement) {
-        if (replacement == null || !replacement.isBlock()) replacement = Material.DIRT;
-        BlockDef def = plugin.content().deleteBlock(id, replacement);
-        if (def == null) {
-            lang().send(sender, "block.not-found", Lang.ph("id", id));
+    private void image(CommandSender sender, String[] args) {
+        if (!perm(sender, "simplex.images.create")) return;
+        if (args.length < 3 || !args[1].equalsIgnoreCase("delete")) {
+            lang().send(sender, "usage.image");
             return;
         }
-        lang().send(sender, "block.deleting", Lang.ph("id", id), Lang.ph("replacement", replacement.getKey().getKey()));
-        int slot = def.slot;
-        Material finalReplacement = replacement;
-        plugin.blockIndex().purgeEverywhere(slot, replacement).whenComplete((count, err) -> Bukkit.getScheduler().runTask(plugin, () -> {
-            if (err == null) {
-                plugin.content().slots().freeRetired(slot);
-                plugin.content().slots().save();
-            }
-            lang().send(sender, "block.deleted", Lang.ph("id", id), Lang.ph("count", count == null ? 0 : count),
-                    Lang.ph("replacement", finalReplacement.getKey().getKey()));
-            for (Player p : Bukkit.getOnlinePlayers()) plugin.blockListener().refreshInventory(p);
-            plugin.packs().requestRebuild();
-        }));
+        deleteImage(sender, args[2]);
     }
 
-    private void model(CommandSender sender, Player player, String[] args) {
-        String action = args.length > 1 ? args[1].toLowerCase(Locale.ROOT) : "list";
-        switch (action) {
-            case "list" -> {
-                if (player != null) {
-                    plugin.menus().models(player);
-                    return;
-                }
-                for (ModelDef m : plugin.content().models()) sender.sendMessage(m.id + " (item slot " + m.itemSlot + ")");
-            }
-            case "give" -> {
-                if (!perm(sender, "simplex.models.give")) return;
-                if (args.length < 3) {
-                    lang().send(sender, "usage.model");
-                    return;
-                }
-                ModelDef m = plugin.content().model(args[2]);
-                if (m == null) {
-                    lang().send(sender, "model.not-found", Lang.ph("id", args[2]));
-                    return;
-                }
-                int amount = args.length > 3 ? Integer.parseInt(args[3]) : 1;
-                Player target = args.length > 4 ? Bukkit.getPlayerExact(args[4]) : player;
-                if (target == null) {
-                    lang().send(sender, "error.player-not-found");
-                    return;
-                }
-                target.getInventory().addItem(plugin.content().item(m, Math.max(1, Math.min(64, amount))));
-                lang().send(sender, "block.given", Lang.ph("id", m.id), Lang.ph("amount", amount), Lang.ph("player", target.getName()));
-            }
-            case "remove" -> {
-                if (!perm(sender, "simplex.models.manage") || !requirePlayer(sender, player)) return;
-                var near = plugin.models().nearest(player, 6);
-                if (near == null) {
-                    lang().send(sender, "model.none-nearby");
-                    return;
-                }
-                plugin.models().remove(near, false);
-                lang().send(sender, "model.removed", Lang.ph("model", near.model));
-            }
-            default -> lang().send(sender, "usage.model");
+    /** Removes all displays of the image and moves the file to {@code trash/}. */
+    public void deleteImage(CommandSender sender, String name) {
+        String file = plugin.images().canonicalName(name);
+        if (file == null) {
+            lang().send(sender, "image.not-found", Lang.ph("image", name));
+            return;
         }
-    }
-
-    private void pack(CommandSender sender, Player player, String[] args) {
-        String action = args.length > 1 ? args[1].toLowerCase(Locale.ROOT) : "info";
-        switch (action) {
-            case "rebuild" -> {
-                if (!perm(sender, "simplex.admin")) return;
-                plugin.packs().rebuild(true);
-                lang().send(sender, "pack.rebuilding");
-            }
-            case "send" -> {
-                Player target = args.length > 2 ? Bukkit.getPlayerExact(args[2]) : player;
-                if (target == null) {
-                    lang().send(sender, "error.player-not-found");
-                    return;
-                }
-                if (target != player && !perm(sender, "simplex.admin")) return;
-                if (plugin.platform().isBedrock(target)) lang().send(sender, "pack.bedrock-reconnect");
-                else plugin.packs().send(target);
-            }
-            default -> {
-                if (player != null && sender.hasPermission("simplex.admin")) plugin.menus().pack(player);
-                else lang().send(sender, "pack.info", Lang.ph("sha", String.valueOf(plugin.packs().javaSha1())));
-            }
-        }
+        int removed = plugin.displays().removeAll(file);
+        boolean ok = plugin.images().delete(file);
+        lang().send(sender, ok ? "image.deleted" : "image.delete-failed", Lang.ph("image", file), Lang.ph("count", removed));
+        if (sender instanceof Player p) plugin.sfx().play(p, ok ? "remove" : "error");
     }
 
     public void reload(CommandSender sender) {
@@ -390,8 +260,8 @@ public final class SimplexCommand implements BasicCommand {
         CommandSender s = source.getSender();
         List<String> out = new ArrayList<>();
         if (args.length <= 1) {
-            out.addAll(List.of("menu", "help", "images", "place", "refresh", "display", "block", "model", "pack"));
-            if (s.hasPermission("simplex.images.create")) out.add("download");
+            out.addAll(List.of("menu", "help", "images", "place", "refresh", "display"));
+            if (s.hasPermission("simplex.images.create")) out.addAll(List.of("download", "image"));
             if (s.hasPermission("simplex.admin")) out.add("reload");
         } else {
             String sub = args[0].toLowerCase(Locale.ROOT);
@@ -414,21 +284,9 @@ public final class SimplexCommand implements BasicCommand {
                     else if (args.length == 3 && args[1].equalsIgnoreCase("style")) Stream.of(FrameStyle.values()).map(Enum::name).forEach(out::add);
                     else plugin.displays().all().forEach(d -> out.add(d.id));
                 }
-                case "block", "blocks" -> {
-                    if (args.length == 2) out.addAll(List.of("list", "give", "create", "edit", "recipe", "delete"));
-                    else if (args.length == 3) plugin.content().blocks().forEach(b -> out.add(b.id));
-                    else if (args.length == 4 && args[1].equalsIgnoreCase("delete")) out.addAll(List.of("dirt", "air", "stone"));
-                    else if (args.length == 4) out.addAll(List.of("1", "16", "64"));
-                    else if (args.length == 5) Bukkit.getOnlinePlayers().forEach(p -> out.add(p.getName()));
-                }
-                case "model", "models" -> {
-                    if (args.length == 2) out.addAll(List.of("list", "give", "remove"));
-                    else if (args.length == 3) plugin.content().models().forEach(m -> out.add(m.id));
-                    else if (args.length == 5) Bukkit.getOnlinePlayers().forEach(p -> out.add(p.getName()));
-                }
-                case "pack" -> {
-                    if (args.length == 2) out.addAll(List.of("info", "rebuild", "send"));
-                    else if (args.length == 3) Bukkit.getOnlinePlayers().forEach(p -> out.add(p.getName()));
+                case "image" -> {
+                    if (args.length == 2) out.add("delete");
+                    else if (args.length == 3) out.addAll(plugin.images().list());
                 }
                 default -> {
                 }
