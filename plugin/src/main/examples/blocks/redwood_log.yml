@@ -1,0 +1,28 @@
+# Example block – edit freely, then /sim reload (or edit it in the menu).
+id: redwood_log
+name:
+  en: "Redwood Log"
+  de: "Rotholzstamm"
+description:
+  en: "Rough bark, glowing red heartwood."
+  de: "Raue Rinde, leuchtend rotes Kernholz."
+type: solid
+textures:
+  side: redwood_log.png
+  top: redwood_log_top.png
+  bottom: redwood_log_top.png
+hardness: 2.0
+tool: axe
+requires-tool: false
+sound: wood
+drop: self
+category: building
+recipe:
+  shape:
+    - "MMM"
+    - "MDM"
+    - "MMM"
+  ingredients:
+    M: minecraft:mangrove_log
+    D: minecraft:red_dye
+  amount: 8

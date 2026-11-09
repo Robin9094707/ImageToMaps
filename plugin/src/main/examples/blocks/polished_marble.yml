@@ -1,0 +1,24 @@
+# Example block – edit freely, then /sim reload (or edit it in the menu).
+id: polished_marble
+name:
+  en: "Polished Marble"
+  de: "Polierter Marmor"
+description:
+  en: "Mirror smooth marble."
+  de: "Spiegelglatter Marmor."
+type: True
+textures:
+  all: polished_marble.png
+hardness: 1.5
+tool: pickaxe
+requires-tool: false
+sound: calcite
+drop: self
+category: building
+recipe:
+  shape:
+    - "MM"
+    - "MM"
+  ingredients:
+    M: simplex:marble
+  amount: 4

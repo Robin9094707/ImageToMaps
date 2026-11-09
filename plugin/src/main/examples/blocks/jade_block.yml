@@ -1,0 +1,26 @@
+# Example block – edit freely, then /sim reload (or edit it in the menu).
+id: jade_block
+name:
+  en: "Jade Block"
+  de: "Jadeblock"
+description:
+  en: "Polished green gemstone."
+  de: "Polierter grüner Edelstein."
+type: True
+textures:
+  all: jade_block.png
+hardness: 3.0
+tool: pickaxe
+requires-tool: false
+sound: amethyst
+drop: self
+category: building
+recipe:
+  shape:
+    - "EEE"
+    - "ECE"
+    - "EEE"
+  ingredients:
+    E: minecraft:emerald
+    C: minecraft:calcite
+  amount: 2

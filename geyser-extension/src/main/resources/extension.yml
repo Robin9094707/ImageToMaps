@@ -1,0 +1,6 @@
+id: simplexgeyser
+name: SimplexGeyser
+main: dev.simplex.geyser.SimplexGeyserExtension
+api: 2.9.0
+version: ${version}
+authors: [Simplex]

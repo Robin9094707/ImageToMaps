@@ -1,0 +1,309 @@
+# Simplex ImageToMap – Deutsch (für alle Clients mit deutscher Sprache). MiniMessage-Format.
+prefix: "<gradient:#4fd1ff:#7b5cff><bold>Simplex</bold></gradient> <dark_gray>»</dark_gray> "
+
+help: |-
+  <gradient:#4fd1ff:#7b5cff><bold>Simplex ImageToMap</bold></gradient> <gray>– Befehle</gray>
+  <aqua>/sim</aqua> <gray>Menü öffnen (Java: Truhe & Dialoge, Bedrock: native Formulare)</gray>
+  <aqua>/sim place <bild> [b] [h]</aqua> <gray>geführtes Platzieren mit Live-Vorschau</gray>
+  <aqua>/sim place cancel</aqua> <gray>· </gray><aqua>/sim place size <b> <h></aqua>
+  <aqua>/sim refresh <bild|all></aqua> <gray>Bilddatei live in alle Anzeigen neu laden</gray>
+  <aqua>/sim download <url> [name]</aqua> <gray>Bild / GIF herunterladen</gray>
+  <aqua>/sim display <list|info|move|style|pause|remove|tp></aqua>
+  <aqua>/sim block <list|give|create|edit|delete> …</aqua>
+  <aqua>/sim model <list|give|remove> …</aqua>
+  <aqua>/sim pack <info|rebuild|send></aqua> <gray>·</gray> <aqua>/sim reload</aqua>
+
+reloaded: "<green>Konfiguration, Blöcke und Modelle neu geladen – Pakete werden neu gebaut.</green>"
+settings.saved: "<green>Einstellungen gespeichert.</green>"
+
+error:
+  no-permission: "<red>Dazu hast du keine Berechtigung.</red>"
+  player-only: "<red>Das können nur Spieler.</red>"
+  player-not-found: "<red>Spieler nicht gefunden.</red>"
+  number: "<red>Keine gültige Zahl: <white><value></white></red>"
+  generic: "<red>Etwas ist schiefgelaufen: <white><error></white></red>"
+
+usage:
+  place: "<gray>Nutzung: <aqua>/sim place <bild> [breite] [höhe]</aqua>, <aqua>/sim place cancel</aqua>, <aqua>/sim place size <b> <h></aqua></gray>"
+  download: "<gray>Nutzung: <aqua>/sim download <url> [name]</aqua></gray>"
+  display: "<gray>Nutzung: <aqua>/sim display <list|info|move|style <stil>|pause|resume|remove|tp> [id]</aqua></gray>"
+  display-create: "<gray>Nutzung: <aqua>/sim display create <bild> <b> <h> <welt> <x> <y> <z> <seite> [stil]</aqua> <dark_gray>(x y z = Block, an dem die Rahmen hängen)</dark_gray></gray>"
+  block: "<gray>Nutzung: <aqua>/sim block <list|give <id> [anzahl] [spieler]|create|edit <id>|delete <id> [ersatz]></aqua></gray>"
+  model: "<gray>Nutzung: <aqua>/sim model <list|give <id> [anzahl] [spieler]|remove></aqua></gray>"
+
+item:
+  tag-block: "Simplex-Block"
+  tag-model: "Simplex-Modell"
+
+frame-style:
+  invisible: "<white>Unsichtbar</white>"
+  normal: "<white>Sichtbarer Rahmen</white>"
+  glow-invisible: "<yellow>Leuchtend · unsichtbar</yellow>"
+  glow: "<yellow>Leuchtrahmen</yellow>"
+
+fit-mode:
+  fit: "<white>Einpassen (ganzes Bild)</white>"
+  fill: "<white>Füllen (zuschneiden)</white>"
+  stretch: "<white>Strecken</white>"
+
+block-type:
+  solid: "Massiv"
+  transparent: "Transparent / Modell"
+
+tool:
+  none: "Keins"
+  pickaxe: "Spitzhacke"
+  axe: "Axt"
+  shovel: "Schaufel"
+  hoe: "Hacke"
+  shears: "Schere"
+
+sound-preset:
+  stone: "Stein"
+  wood: "Holz"
+  cherry-wood: "Kirschholz"
+  bamboo-wood: "Bambusholz"
+  nether-wood: "Netherholz"
+  glass: "Glas"
+  metal: "Metall"
+  copper: "Kupfer"
+  deepslate: "Tiefenschiefer"
+  deepslate-bricks: "Tiefenschieferziegel"
+  polished-deepslate: "Polierter Tiefenschiefer"
+  tuff: "Tuffstein"
+  calcite: "Kalzit"
+  amethyst: "Amethyst"
+  mud-bricks: "Schlammziegel"
+  nether-bricks: "Netherziegel"
+  basalt: "Basalt"
+  wool: "Wolle"
+  gravel: "Kies"
+  sand: "Sand"
+  grass: "Gras"
+  moss: "Moos"
+  lodestone: "Leitstein"
+  netherite: "Netherit"
+
+image:
+  not-found: "<red>Bild <white><image></white> wurde im Bilder-Ordner nicht gefunden.</red>"
+  invalid: "<red>Bild konnte nicht gelesen werden: <white><error></white></red>"
+  refreshed: "<green>Bild <white><image></white> live aktualisiert.</green>"
+  refresh-failed: "<red>Bild <white><image></white> konnte nicht gerendert werden.</red>"
+  refreshed-all: "<green><white><count></white> Anzeigen werden neu gerendert…</green>"
+  not-used: "<yellow>Bild <white><image></white> wird noch von keiner Anzeige genutzt.</yellow>"
+  downloading: "<gray>Lade <white><url></white> herunter…</gray>"
+  downloaded: "<green>Gespeichert als <white><image></white>.</green> <gray>Nutze <aqua>/sim place <image></aqua></gray>"
+  download-failed: "<red>Download fehlgeschlagen: <white><error></white></red>"
+
+placement:
+  started: "<green>Geführtes Platzieren für <white><image></white> (<w>×<h> Karten).</green>\n<gray>Schau auf eine Wand, den Boden oder die Decke. <white>Rechtsklick</white> platzieren · <white>Linksklick</white> Rahmenstil · <white>Schleichen + Scrollen</white> Größe · <white>F</white> Einpassung · <white>Schleichen + Rechtsklick</white> abbrechen</gray>"
+  started-bedrock: "<green>Geführtes Platzieren für <white><image></white> (<w>×<h> Karten).</green>\n<gray>Schau auf Wand/Boden. <white>Tippen/Benutzen</white> platzieren · <white>Schlagen</white> Rahmenstil · <white>Schleichen + Hotbar-Slot wechseln</white> Größe · <white>Schleichen + Benutzen</white> abbrechen</gray>"
+  no-target: "<gray>Schau auf eine Wand, den Boden oder die Decke…</gray>"
+  valid: "<green>✔ Passt!</green> <gray>Rechtsklick zum Platzieren · Linksklick: Stil · Schleichen+Scrollen: Größe</gray>"
+  valid-bedrock: "<green>✔ Passt!</green> <gray>Benutzen zum Platzieren · Schlagen: Stil</gray>"
+  invalid: "<red>✖ Passt nicht</red> <gray>– <white><missing></white> fehlende Blöcke dahinter, <white><blocked></white> blockiert</gray>"
+  cannot-place: "<red>Hier geht es nicht: <white><missing></white> Blöcke hinter den Rahmen fehlen, <white><blocked></white> Felder sind blockiert.</red>"
+  style-changed: "<gray>Rahmenstil:</gray> <style>"
+  fit-changed: "<gray>Einpassung:</gray> <fit>"
+  bossbar: "<white><image></white> <dark_gray>|</dark_gray> <aqua><w>×<h></aqua> <gray>Karten</gray> <dark_gray>|</dark_gray> <style> <dark_gray>|</dark_gray> <fit>"
+  cancelled: "<gray>Platzieren abgebrochen.</gray>"
+  placed: "<green>Anzeige <white><id></white> platziert: <white><image></white> (<w>×<h>).</green>"
+  bedrock-invisible-note: "<gray>Hinweis: Bedrock kann keine unsichtbaren Rahmen darstellen – Bedrock-Spieler sehen normale Rahmen.</gray>"
+
+display:
+  not-found: "<red>Keine Anzeige gefunden – schau eine an oder gib die ID an.</red>"
+  removed: "<green>Anzeige <white><id></white> entfernt.</green>"
+  restyled: "<green>Anzeige <white><id></white> aktualisiert.</green>"
+  info: "<white><id></white> <gray>· <image> · <w>×<h> · <style> · <fit> · <status></gray>"
+  status-ok: "✔ bereit"
+  status-loading: "⌛ wird gerendert…"
+  status-error: "✖ <error>"
+  status-animated: "▶ animiert (<frames> Frames)"
+
+block:
+  not-found: "<red>Unbekannter Block <white><id></white>.</red>"
+  invalid-id: "<red>Ungültige oder vergebene ID <white><id></white> (a-z, 0-9, _).</red>"
+  no-slot: "<red>Für diesen Blocktyp ist kein Platz mehr frei.</red>"
+  no-textures: "<red>Noch keine Texturen – lade PNGs nach <white><folder></white> hoch.</red>"
+  created: "<green>Block <white><id></white> erstellt! Das Ressourcenpaket wird für alle aktualisiert.</green>"
+  saved: "<green>Block <white><id></white> gespeichert – Pakete werden aktualisiert.</green>"
+  given: "<green><white><amount>× <id></white> an <white><player></white> gegeben.</green>"
+  deleting: "<yellow>Lösche <white><id></white> – platzierte Blöcke werden zu <white><replacement></white>…</yellow>"
+  deleted: "<green>Block <white><id></white> gelöscht, <white><count></white> platzierte Blöcke durch <white><replacement></white> ersetzt.</green>"
+  bedrock-reconnect: "<gray>Bedrock-Spieler sehen neue Blöcke nach dem Neuverbinden.</gray>"
+
+model:
+  not-found: "<red>Unbekanntes Modell <white><id></white>.</red>"
+  none-nearby: "<red>Kein platziertes Modell in der Nähe.</red>"
+  removed: "<green>Modell <white><model></white> entfernt.</green>"
+  deleted: "<green>Modell <white><id></white> gelöscht.</green>"
+  created: "<green>Modell <white><id></white> importiert!</green>"
+  saved: "<green>Modell <white><id></white> gespeichert – platzierte Exemplare aktualisiert.</green>"
+  no-uploads: "<red>Kein neuer Upload gefunden. Lege einen Blockbench-Export (model.json + PNGs) in <white><folder></white>.</red>"
+  no-json: "<red>Kein .json-Modell in <white><folder></white>.</red>"
+
+pack:
+  prompt: "<gradient:#4fd1ff:#7b5cff>Simplex</gradient> <gray>Custom-Blöcke, Modelle & Sounds</gray>"
+  updated-java: "<aqua>Neuer Custom-Content – das Ressourcenpaket wurde live aktualisiert.</aqua>"
+  updated-bedrock: "<aqua>Neuer Custom-Content verfügbar – verbinde dich neu, um ihn zu laden.</aqua>"
+  declined: "<yellow>Ohne Ressourcenpaket sehen Custom-Blöcke wie Pilzblöcke aus.</yellow>"
+  failed: "<red>Das Ressourcenpaket konnte nicht geladen werden (<status>).</red>"
+  rebuilding: "<gray>Ressourcenpakete werden neu gebaut…</gray>"
+  bedrock-reconnect: "<gray>Bedrock-Pakete werden beim Beitreten gesendet – bitte neu verbinden.</gray>"
+  info: "<gray>Java-Paket SHA-1: <white><sha></white></gray>"
+
+recipe:
+  title: "<dark_gray>Rezept-Editor</dark_gray>"
+  less: "<red>- 1</red> <gray>(Shift: 8)</gray>"
+  more: "<green>+ 1</green> <gray>(Shift: 8)</gray>"
+  amount: "<white>Menge: <aqua><amount></aqua></white>"
+  save: "<green><bold>Rezept speichern</bold></green>"
+  save-lore:
+    - "<gray>Registriert das Rezept für alle.</gray>"
+  clear: "<yellow>Raster leeren</yellow>"
+  remove: "<red>Rezept entfernen</red>"
+  hint: "<white>Klicke Items aus deinem Inventar ins 3×3-Raster</white>"
+  hint-lore:
+    - "<gray>Deine Items werden nicht verbraucht – nur kopiert.</gray>"
+    - "<gray>Mit leerer Hand auf ein Feld klicken leert es.</gray>"
+
+menu:
+  back: "<gray>« Zurück</gray>"
+  close: "<red>Schließen</red>"
+  next: "<white>Nächste Seite »</white>"
+  previous: "<white>« Vorherige Seite</white>"
+  submit: "<green>Speichern</green>"
+  cancel: "<red>Abbrechen</red>"
+  "yes": "<green>Ja</green>"
+  "no": "<red>Nein</red>"
+  main:
+    title: "<gradient:#4fd1ff:#7b5cff>Simplex</gradient>"
+    body: "<gray>Bilder, GIFs, Custom-Blöcke und 3D-Modelle – für Java und Bedrock.</gray>"
+    images: {name: "<aqua>Bilder & GIFs</aqua>", lore: ["<gray>Hochgeladene Bilder auf Karten platzieren</gray>"]}
+    displays: {name: "<aqua>Platzierte Anzeigen</aqua>", lore: ["<gray>Verwalten, verschieben & aktualisieren</gray>"]}
+    blocks: {name: "<gold>Custom-Blöcke</gold>", lore: ["<gray>Katalog, erstellen & bearbeiten</gray>"]}
+    models: {name: "<light_purple>3D-Modelle & Möbel</light_purple>", lore: ["<gray>Modelle überall platzieren</gray>"]}
+    pack: {name: "<green>Ressourcenpakete</green>", lore: ["<gray>Neu bauen, neu senden, neu laden</gray>"]}
+    settings: {name: "<yellow>Einstellungen</yellow>", lore: ["<gray>Module, Bildraten, Pakete</gray>"]}
+    help: {name: "<white>Hilfe</white>", lore: ["<gray>Alle Befehle</gray>"]}
+  images:
+    title: "<dark_aqua>Bilder</dark_aqua>"
+    body: "<gray>Lade PNG-, JPG- oder GIF-Dateien nach <folder> hoch – Änderungen werden live übernommen.</gray>"
+    entry-lore:
+      - "<gray>Typ: <white><type></white> · <white><size></white> px</gray>"
+      - "<gray>Genutzt von <white><used></white> Anzeigen</gray>"
+    download: {name: "<aqua>Von URL herunterladen</aqua>", lore: ["<gray>Bild aus dem Internet hinzufügen</gray>"]}
+    refresh-all: {name: "<yellow>Alle aktualisieren</yellow>", lore: ["<gray>Jede Bilddatei neu einlesen</gray>"]}
+  image:
+    place: {name: "<green>Platzieren (geführt)</green>", lore: ["<gray>Live-Vorschau an Wand / Boden</gray>"]}
+    place-custom: {name: "<aqua>Mit Optionen platzieren…</aqua>", lore: ["<gray>Größe, Einpassung, Rahmenstil</gray>"]}
+    refresh: {name: "<yellow>Live aktualisieren</yellow>", lore: ["<gray>Geänderte Datei in alle Anzeigen übernehmen</gray>"]}
+  place:
+    title: "<dark_aqua>Bild platzieren</dark_aqua>"
+    body: "<gray><image> · <size> px · Höhe 0 = Seitenverhältnis behalten</gray>"
+    width: "Breite (Karten)"
+    height: "Höhe (Karten, 0 = automatisch)"
+    fit: "Einpassung"
+    style: "Rahmenstil"
+    dither: "Dithering (weichere Farben)"
+  download:
+    title: "<dark_aqua>Bild herunterladen</dark_aqua>"
+    body: "<gray>PNG, JPG, BMP oder animiertes GIF.</gray>"
+    url: "URL"
+    name: "Dateiname (optional)"
+  displays:
+    title: "<dark_aqua>Anzeigen</dark_aqua>"
+    body: "<gray>Nach Entfernung sortiert.</gray>"
+    entry-lore:
+      - "<gray><image> · <white><w>×<h></white> Karten</gray>"
+      - "<gray><world> · <white><distance></white> Blöcke entfernt</gray>"
+      - "<gray><status></gray>"
+  display:
+    teleport: {name: "<aqua>Teleportieren</aqua>", lore: []}
+    refresh: {name: "<yellow>Aktualisieren</yellow>", lore: ["<gray>Aus der Datei neu rendern</gray>"]}
+    edit: {name: "<white>Bild / Stil ändern</white>", lore: ["<gray>Gleiche Karten, neuer Inhalt</gray>"]}
+    move: {name: "<light_purple>Verschieben (geführt)</light_purple>", lore: ["<gray>Neuen Platz mit Vorschau wählen</gray>"]}
+    pause: {name: "<gray>Animation pausieren</gray>", lore: []}
+    resume: {name: "<green>Animation fortsetzen</green>", lore: []}
+    remove: {name: "<red>Entfernen</red>", lore: ["<gray>Entfernt Rahmen und Karten</gray>"]}
+    remove-confirm: "Anzeige <id> wirklich entfernen?"
+    image: "Bild"
+  blocks:
+    title: "<gold>Custom-Blöcke</gold>"
+    body: "<gray>Alle Custom-Blöcke. Admins können neue erstellen.</gray>"
+    entry-lore:
+      - "<dark_gray>ID: <id> · <type> · Härte <hardness></dark_gray>"
+    create: {name: "<green>Block erstellen</green>", lore: ["<gray>Name, Textur, Sounds, Härte…</gray>"]}
+  block:
+    give: "<green><amount> nehmen</green>"
+    edit: {name: "<white>Bearbeiten</white>", lore: ["<gray>Namen, Texturen, Sounds, Härte</gray>"]}
+    recipe: {name: "<gold>Crafting-Rezept</gold>", lore: ["<gray>Rezept-Editor öffnen</gray>"]}
+    delete: {name: "<red>Löschen</red>", lore: ["<gray>Platzierte Blöcke werden live ersetzt</gray>"]}
+    delete-body: "<id> löschen? Jeder platzierte Block (auch in ungeladenen Chunks) wird ersetzt."
+    replacement: "Ersetzen durch"
+    delete-confirm: "Ja, löschen"
+  block-editor:
+    create: "<gold>Block erstellen</gold>"
+    edit: "<gold>Block bearbeiten</gold>"
+    body: "<gray>Texturen kommen aus dem Ordner textures/. Transparent = Glas / Möbel-Block.</gray>"
+    id: "ID (a-z, 0-9, _)"
+    name-en: "Name (Englisch)"
+    name-de: "Name (Deutsch)"
+    desc-en: "Beschreibung (Englisch)"
+    desc-de: "Beschreibung (Deutsch)"
+    type: "Typ"
+    texture: "Textur (alle Seiten)"
+    top: "Textur oben"
+    bottom: "Textur unten"
+    same: "– gleich –"
+    model: "3D-Modell (nur transparent)"
+    no-model: "– keins (Würfel) –"
+    hardness: "Härte"
+    tool: "Bevorzugtes Werkzeug"
+    requires-tool: "Werkzeug für Drop nötig"
+    sound: "Sound-Set"
+    place-sound: "Eigener Platzier-Sound"
+    break-sound: "Eigener Abbau-Sound"
+    preset-sound: "– aus Sound-Set –"
+    drop-self: "Droppt sich selbst"
+  models:
+    title: "<light_purple>3D-Modelle</light_purple>"
+    body: "<gray>Lade Blockbench-Exporte nach <folder><name>/ hoch und importiere sie hier.</gray>"
+    entry-lore:
+      - "<dark_gray>ID: <id> · Skalierung <scale> · <placed>× platziert</dark_gray>"
+    import: {name: "<green>Upload importieren</green>", lore: ["<gray>model.json + PNG-Texturen</gray>"]}
+    remove-nearest: {name: "<red>Nächstes entfernen</red>", lore: ["<gray>Im Umkreis von 6 Blöcken</gray>"]}
+  model:
+    edit: {name: "<white>Bearbeiten</white>", lore: ["<gray>Namen, Skalierung, Sitz, Kollision</gray>"]}
+    delete: {name: "<red>Löschen</red>", lore: ["<gray>Entfernt auch platzierte Exemplare</gray>"]}
+    delete-confirm: "Modell <id> und alle platzierten Exemplare wirklich löschen?"
+  model-editor:
+    create: "<light_purple>Modell importieren</light_purple>"
+    edit: "<light_purple>Modell bearbeiten</light_purple>"
+    body: "<gray>Java: Item-Display · Bedrock: konvertierte Geometrie über Geyser.</gray>"
+    import-body: "<gray>Wähle den hochgeladenen Ordner.</gray>"
+    folder: "Ordner"
+    scale: "Skalierung"
+    collision: "Fest (Barriere-Kollision)"
+    seat: "Man kann sich draufsetzen"
+    seat-height: "Sitzhöhe"
+    rotation: "Drehschritte (Grad)"
+    bright: "Immer voll beleuchtet"
+  pack:
+    title: "<green>Ressourcenpakete</green>"
+    body: "<gray>Java-Paket <white><sha></white>\n<url></gray>"
+    rebuild: {name: "<green>Neu bauen & senden</green>", lore: ["<gray>Java: live · Bedrock: beim Neuverbinden</gray>"]}
+    resend: {name: "<aqua>Mir erneut senden</aqua>", lore: []}
+    reload: {name: "<yellow>Plugin-Konfig neu laden</yellow>", lore: ["<gray>Blöcke, Modelle, Sprachen</gray>"]}
+  settings:
+    title: "<yellow>Einstellungen</yellow>"
+    body: "<gray>Änderungen werden in der config.yml gespeichert.</gray>"
+    blocks: "Custom-Block-Modul"
+    models: "3D-Modell-Modul"
+    push: "Pakete bei Änderungen live senden"
+    required: "Ressourcenpaket erzwingen"
+    auto-refresh: "Geänderte Bilder automatisch aktualisieren"
+    ghost: "Geister-Vorschau für Modelle"
+    java-fps: "GIF-Bildrate (Java)"
+    bedrock-fps: "GIF-Bildrate (Bedrock)"
+    view-distance: "Animations-Sichtweite"

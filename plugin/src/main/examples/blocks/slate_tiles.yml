@@ -1,0 +1,24 @@
+# Example block – edit freely, then /sim reload (or edit it in the menu).
+id: slate_tiles
+name:
+  en: "Slate Tiles"
+  de: "Schieferfliesen"
+description:
+  en: "Blue grey slate tiles."
+  de: "Blaugraue Schieferfliesen."
+type: True
+textures:
+  all: slate_tiles.png
+hardness: 2.0
+tool: pickaxe
+requires-tool: false
+sound: deepslate
+drop: self
+category: building
+recipe:
+  shape:
+    - "DD"
+    - "DD"
+  ingredients:
+    D: minecraft:polished_deepslate
+  amount: 4

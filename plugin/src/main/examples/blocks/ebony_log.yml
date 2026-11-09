@@ -1,0 +1,28 @@
+# Example block – edit freely, then /sim reload (or edit it in the menu).
+id: ebony_log
+name:
+  en: "Ebony Log"
+  de: "Ebenholzstamm"
+description:
+  en: "Dark, dense wood."
+  de: "Dunkles, dichtes Holz."
+type: solid
+textures:
+  side: ebony_log.png
+  top: ebony_log_top.png
+  bottom: ebony_log_top.png
+hardness: 2.5
+tool: axe
+requires-tool: false
+sound: wood
+drop: self
+category: building
+recipe:
+  shape:
+    - "DDD"
+    - "DID"
+    - "DDD"
+  ingredients:
+    D: minecraft:dark_oak_log
+    I: minecraft:black_dye
+  amount: 8

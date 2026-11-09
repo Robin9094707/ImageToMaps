@@ -1,0 +1,26 @@
+# Example block – edit freely, then /sim reload (or edit it in the menu).
+id: frosted_glass
+name:
+  en: "Frosted Glass"
+  de: "Milchglas"
+description:
+  en: "Frosty privacy glass."
+  de: "Frostiges Sichtschutzglas."
+type: transparent
+textures:
+  all: frosted_glass.png
+hardness: 0.3
+tool: none
+requires-tool: false
+sound: glass
+drop: self
+category: building
+recipe:
+  shape:
+    - "GGG"
+    - "GSG"
+    - "GGG"
+  ingredients:
+    G: minecraft:glass
+    S: minecraft:snowball
+  amount: 8

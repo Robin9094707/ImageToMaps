@@ -1,0 +1,22 @@
+# Example 3D model. model.json was written in Java block-model format (Blockbench: File > Export > Java Block/Item).
+id: oak_chair
+name:
+  en: "Oak Chair"
+  de: "Eichenstuhl"
+description:
+  en: "Comfortable – right click to sit down."
+  de: "Bequem – Rechtsklick zum Hinsetzen."
+model: model.json
+scale: 1.0
+collision: true
+seat: true
+seat-height: 0.55
+rotation-step: 45
+full-bright: false
+recipe: 
+  shape: ["P  ", "PPP", "S S"]
+  ingredients: {P: minecraft:oak_planks, S: minecraft:stick}
+  amount: 2
+bedrock:
+  yaw-offset: 180
+  offset: [0.0, 0.0, 0.0]

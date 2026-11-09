@@ -1,0 +1,26 @@
+# Example block – edit freely, then /sim reload (or edit it in the menu).
+id: volcanic_bricks
+name:
+  en: "Volcanic Bricks"
+  de: "Vulkanziegel"
+description:
+  en: "Basalt bricks with glowing lava seams."
+  de: "Basaltziegel mit glühenden Lavafugen."
+type: True
+textures:
+  all: volcanic_bricks.png
+hardness: 2.5
+tool: pickaxe
+requires-tool: false
+sound: nether_bricks
+drop: self
+category: building
+recipe:
+  shape:
+    - "BBB"
+    - "BMB"
+    - "BBB"
+  ingredients:
+    B: minecraft:polished_basalt
+    M: minecraft:magma_block
+  amount: 8
